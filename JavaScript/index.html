@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkbox App</title>
+  <style>
+    /* Some basic styling for demonstration purposes */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+    }
+    h1 {
+      margin: 0;
+    }
+    main {
+      padding: 20px;
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .checkbox-container {
+      margin-bottom: 10px;
+    }
+    button {
+      margin-right: 10px;
+    }
+  </style>
+  <script>
+    var checkboxes = ['Internship', 'Pabau', 'Employment', 'Career'];
+
+    function shuffleValues() {
+      var checkboxContainer = document.getElementById('checkboxContainer');
+      for (var i = checkboxes.length - 1; i > 0; i--) {
+        checkboxContainer.appendChild(document.getElementById(checkboxes[Math.floor(Math.random() * (i + 1))]));
+      }
+    }
+
+    function changeValues() {
+      var values = ['New Value 1', 'New Value 2', 'New Value 3', 'New Value 4'];
+      for (var i = 0; i < checkboxes.length; i++) {
+        var checkbox = document.getElementById(checkboxes[i]);
+        checkbox.value = values[i];
+        checkbox.nextSibling.textContent = values[i];
+      }
+    }
+
+    function showSelectedValues() {
+      var selectedValues = [];
+      for (var i = 0; i < checkboxes.length; i++) {
+        var checkbox = document.getElementById(checkboxes[i]);
+        if (checkbox.checked) {
+          selectedValues.push(checkbox.value);
+        }
+      }
+      alert("Selected Values: " + selectedValues.join(", "));
+    }
+
+    function selectOption(option) {
+      var stepElement = document.getElementById('step');
+      var mainElement = document.getElementById('main');
+      stepElement.textContent = '2/2';
+
+      mainElement.innerHTML = '';
+
+      var selectedOptionElement = document.createElement('p');
+      selectedOptionElement.textContent = option;
+
+      var backButton = document.createElement('button');
+      backButton.textContent = 'Back';
+      backButton.addEventListener('click', goBack);
+
+      mainElement.appendChild(selectedOptionElement);
+      mainElement.appendChild(backButton);
+    }
+
+    function goBack() {
+      var stepElement = document.getElementById('step');
+      var mainElement = document.getElementById('main');
+
+      stepElement.textContent = '1/2';
+
+      mainElement.innerHTML = '';
+
+      var checkboxContainer = document.createElement('div');
+      checkboxContainer.id = 'checkboxContainer';
+      checkboxContainer.className = 'checkbox-container';
+
+      for (var i = 0; i < checkboxes.length; i++) {
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = checkboxes[i];
+        checkbox.value = checkboxes[i];
+
+        var label = document.createElement('label');
+        label.htmlFor = checkboxes[i];
+        label.textContent = checkboxes[i];
+
+        checkboxContainer.appendChild(checkbox);
+        checkboxContainer.appendChild(label);
+        checkboxContainer.appendChild(document.createElement('br'));
+      }
+
+      mainElement.appendChild(checkboxContainer);
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>App</h1>
+    <p id="step">1/2</p>
+  </header>
+  <main id="main">
+    <div class="checkbox-container" id="checkboxContainer">
+      <input type="checkbox" id="Internship" value="Internship">
+      <label for="Internship">Internship</label><br>
+      <input type="checkbox" id="Pabau" value="Pabau">
+      <label for="Pabau">Pabau</label><br>
+      <input type="checkbox" id="Employment" value="Employment">
+      <label for="Employment">Employment</label><br>
+      <input type="checkbox" id="Career" value="Career">
+      <label for="Career">Career</label><br>
+    </div>
+    <br>
+    <button onclick="shuffleValues()">Shuffle Values</button>
+    <button onclick="changeValues()">Change Values</button>
+    <button onclick="showSelectedValues()">Show selected values</button>
+  </main>
+  <footer>
+    &copy; 2023 App
+  </footer>
+</body>
+</html>
